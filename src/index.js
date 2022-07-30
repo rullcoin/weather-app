@@ -1,26 +1,32 @@
 import './style.css';
+import { callApi } from './apiFunc'
+// Main body container
+const mainContainer = document.querySelector('.card-container')
+// ContentDiv 
+const contentDiv = document.createElement('div')
+contentDiv.classList = 'city-card'
+// City 
+const cityHeader = document.createElement('h1')
+const cityTemp = document.createElement('h2')
+const feelsLike = document.createElement('h3')
 
-async function callApi(city) {
-    try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a8bc01c3b61632b23dda8a1f7fe205b2&units=metric`)
-        const cityWeather = await response.json()
-    
-        let cityData = getWeather(cityWeather)
+contentDiv.append(cityHeader, cityTemp, feelsLike)
+mainContainer.append(contentDiv)
 
-        console.log(cityWeather);
-    }
-    catch(err) {
-        console.log(err);
-    }
-}   
+let button = document.getElementById('submit-button')
 
-function getWeather(response) {
+button.addEventListener('click', function(e){
+    e.preventDefault()
+    let searchBox = document.getElementById('search-box')
+    let userInput = searchBox.value
 
-    return {temp: response.main.temp,
-            weather: response.weather[0].main
+    let cityData = callApi(userInput, 'metric')
 
-        }
+    cityData.then((data) => addTextContent(data))
+}) 
 
+function addTextContent(data) {
+    cityHeader.textContent = data.name + ', ' + data.country
+    cityTemp.textContent = data.temp + '°'
+    feelsLike.textContent = `Feels like: ${data.feelsLike}`
 }
-
-callApi('montreal')
