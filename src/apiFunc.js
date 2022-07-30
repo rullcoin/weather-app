@@ -7,7 +7,6 @@ async function callApi(city, units) {
         let cityData = getWeatherData(cityWeather)
 
         console.log(cityWeather);
-
         return cityData
         
     }
@@ -28,14 +27,5 @@ function getWeatherData(response) {
             country: response.sys.country,
         }
 }
-
-// async function randomTest() {
-//  let response = await callApi('montreal', 'metric')
-
-//  let data = getWeatherData(response)
-
-//   console.log(data);
-// }
-
 
 export {callApi}
