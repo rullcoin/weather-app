@@ -6,7 +6,7 @@ async function callApi(city, units) {
         // Get data needed only
         let cityData = getWeatherData(cityWeather)
 
-        console.log(cityWeather);
+        console.log(cityData);
         return cityData
         
     }
@@ -14,6 +14,21 @@ async function callApi(city, units) {
         console.log(err);
     }
 }   
+
+async function callDailyForecastApi(lat, lon, units) {
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=7&appid=a8bc01c3b61632b23dda8a1f7fe205b2&units=${units}`)
+        const cityForecast = await response.json()
+        let dailyForecastData = getDailyForecast(cityForecast)
+
+        console.log(dailyForecastData.list);
+        return dailyForecastData
+    } 
+    catch(err) {
+        console.log(err);
+    }
+}
+
 
 // Create object with data needed from api response
 function getWeatherData(response) {
@@ -25,7 +40,16 @@ function getWeatherData(response) {
             humidity: response.main.humidity,
             name: response.name,
             country: response.sys.country,
+            lat: response.coord.lat,
+            lon: response.coord.lon,
         }
 }
 
-export {callApi}
+function getDailyForecast(response) {
+    return {
+        list: response.list
+    }
+}
+
+
+export {callApi, callDailyForecastApi}

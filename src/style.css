@@ -11,11 +11,13 @@ body {
     background-image: url('./bg.jpg');
     background-size: cover;
 
-    color: rgb(41, 31, 31);
+    color: rgb(238, 238, 238);
+
+    font-family: 'Montserrat', sans-serif;
 }
 
 .header {
-
+    font-weight: bold;
     text-align: center;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.1);
@@ -28,6 +30,19 @@ body {
     width: 100%;
 }
 
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+input[type=text] {
+    margin-left: 3.3rem;
+    padding: 15px;
+    font-size: 1em;
+}
+
 .card-container {
 
     display: flex;
@@ -36,9 +51,17 @@ body {
 }
 
 .city-card {
+    visibility: hidden;
     border: 1px solid rgb(143, 141, 141);
     background-color: rgba(165, 159, 159, 0.3);
     border-radius: 25px;
+    width: 800px;
+    height: 400px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .unit-div {
