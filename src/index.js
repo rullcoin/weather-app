@@ -4,6 +4,7 @@ import { callApi, callDailyForecastApi } from './apiFunc'
 (function WeatherApp() {
 // Main body container
 const mainContainer = document.querySelector('.card-container')
+const dailyForecastContainer = document.querySelector('.daily-forecast-container')
 // ContentDiv 
 const contentDiv = document.createElement('div')
 contentDiv.classList = 'city-card'
@@ -19,7 +20,7 @@ const currentUnitText = document.createElement('h5')
 
 changeUnitDiv.append(currentUnitText)
 contentDiv.append(cityHeader, cityTemp, feelsLike,weatherDesc, changeUnitDiv)
-mainContainer.append(contentDiv)
+mainContainer.append(contentDiv, dailyForecastContainer)
 
 // Current unit for temperature, metric as default
 let unit = 'metric'
@@ -65,10 +66,13 @@ function displayContent(userInput, unit) {
         contentDiv.style.visibility = 'visible'
         addTextContent(data)
 
-        // Calls daily forecast API as well with lat & lon
-        callDailyForecastApi(lat, lon, unit)
+        // Returns and calls daily forecast API as well with lat & lon
+        return callDailyForecastApi(lat, lon, unit)
     })
-}
+    .then((data) => {
+        console.log(data[0]);
+    })
+    }
 
 // Change current measurement unit text
 changeUnitDiv.addEventListener('click', function() {

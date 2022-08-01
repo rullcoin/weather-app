@@ -17,12 +17,14 @@ async function callApi(city, units) {
 
 async function callDailyForecastApi(lat, lon, units) {
     try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=7&appid=a8bc01c3b61632b23dda8a1f7fe205b2&units=${units}`)
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=33&appid=a8bc01c3b61632b23dda8a1f7fe205b2&units=${units}`)
         const cityForecast = await response.json()
         let dailyForecastData = getDailyForecast(cityForecast)
 
-        console.log(dailyForecastData.list);
-        return dailyForecastData
+        console.log(cityForecast);
+        let formatedData = getDailyForecastData(dailyForecastData)
+    
+        return formatedData
     } 
     catch(err) {
         console.log(err);
@@ -47,8 +49,28 @@ function getWeatherData(response) {
 
 function getDailyForecast(response) {
     return {
-        list: response.list
+        dayOne: response.list[0],
+        dayTwo: response.list[8],
+        dayThree: response.list[17],
+        dayFour: response.list[26],
+        dayFive: response.list[32]
     }
+}
+
+function getDailyForecastData(list) {
+    let formattedObject = []
+    for (const property in list) {
+        let obj = {
+            date: list[property].dt_txt,
+            temp: list[property].main.temp,
+            temp_min: list[property].main.temp_min,
+            weather: list[property].weather[0].description
+        }
+        formattedObject.push(obj)
+    }
+
+    return formattedObject
+
 }
 
 
