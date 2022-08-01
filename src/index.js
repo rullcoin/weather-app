@@ -127,7 +127,6 @@ function changeUnit() {
     return newUnit
 }
 })()
-
 // Old promise func.
 // function displayContent(userInput, unit) {
 //     let cityData = callApi(userInput, unit)
