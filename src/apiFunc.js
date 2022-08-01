@@ -21,10 +21,10 @@ async function callDailyForecastApi(lat, lon, units) {
         const cityForecast = await response.json()
         let dailyForecastData = getDailyForecast(cityForecast)
 
-        console.log(cityForecast);
-        let formatedData = getDailyForecastData(dailyForecastData)
+        console.log(dailyForecastData);
+        let formattedData = getDailyForecastData(dailyForecastData)
     
-        return formatedData
+        return formattedData
     } 
     catch(err) {
         console.log(err);
@@ -44,6 +44,7 @@ function getWeatherData(response) {
             country: response.sys.country,
             lat: response.coord.lat,
             lon: response.coord.lon,
+            icon: response.weather[0].icon
         }
 }
 
@@ -64,7 +65,8 @@ function getDailyForecastData(list) {
             date: list[property].dt_txt,
             temp: list[property].main.temp,
             temp_min: list[property].main.temp_min,
-            weather: list[property].weather[0].description
+            weather: list[property].weather[0].description,
+            icon: list[property].weather[0].icon
         }
         formattedObject.push(obj)
     }
