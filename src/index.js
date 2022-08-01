@@ -41,13 +41,7 @@ searchButton.addEventListener('click', function(e){
     userInput = searchBox.value
 
     searchBox.value = ''
-
-    //let cityData = callApi(userInput, unit)
-
-    //cityData.then((data) => addTextContent(data))
     displayContent(userInput, unit)
-
-    //contentDiv.style.visibility = 'visible'
     currentUnitText.textContent = 'Display °F'
 }) 
 
