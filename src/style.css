@@ -10,9 +10,7 @@ body {
     width: 100%;
     background-image: url('https://rullcoin.github.io/weather-app/src/bg.jpg');
     background-size: cover;
-
     color: rgb(238, 238, 238);
-
     font-family: 'Montserrat', sans-serif;
 }
 
