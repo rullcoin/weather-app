@@ -36,7 +36,9 @@ let userInput = ''
 let searchButton = document.getElementById('submit-button')
 searchButton.addEventListener('click', function(e){
     // Reset Daily forecast div
-    DailyForecastDiv.innerHTML = ''
+    
+    
+    
     e.preventDefault()
     // User search and input value
     let searchBox = document.getElementById('search-box')
@@ -49,7 +51,7 @@ searchButton.addEventListener('click', function(e){
     //cityData.then((data) => addTextContent(data))
     displayContent(userInput, unit)
 
-   //contentDiv.style.visibility = 'visible'
+    //contentDiv.style.visibility = 'visible'
     currentUnitText.textContent = 'Display °F'
 }) 
 
@@ -64,7 +66,7 @@ function addTextContent(data) {
 
 function addDailyForecastTextContent(data) {
     const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    
+    DailyForecastDiv.innerHTML = ''
     for (let i = 0; i < data.length; i++) {
         let div = document.createElement('div')
         const currentDay = document.createElement('h1')
@@ -90,24 +92,17 @@ function addDailyForecastTextContent(data) {
         contentContainer.append(DailyForecastDiv)
 }}
 
+async function displayContent(userInput, unit) {
 
-function displayContent(userInput, unit) {
-    let cityData = callApi(userInput, unit)
-    cityData.then((data) => {
+    let cityData = await callApi(userInput, unit)
+    let lat = cityData.lat
+    let lon = cityData.lon
+    let apiCall = await callDailyForecastApi(lat, lon, unit)
 
-        let lat = data.lat
-        let lon = data.lon
-
-        contentDiv.style.visibility = 'visible'
-        addTextContent(data)
-
-        // Returns and calls daily forecast API as well with lat & lon
-        return callDailyForecastApi(lat, lon, unit)
-    })
-    .then((data) => {
-        addDailyForecastTextContent(data)
-        })
-    }
+    contentDiv.style.visibility = 'visible'
+    addTextContent(cityData)
+    addDailyForecastTextContent(apiCall)
+}
 
 // Change current measurement unit text
 changeUnitDiv.addEventListener('click', function() {
@@ -117,7 +112,7 @@ changeUnitDiv.addEventListener('click', function() {
 
 function changeUnit() {
     //Reset daily forecast div first
-    DailyForecastDiv.innerHTML = ''
+    //DailyForecastDiv.innerHTML = ''
 
     let newUnit = ''
     if (currentUnitText.innerText === 'Display °F') {
@@ -132,3 +127,22 @@ function changeUnit() {
     return newUnit
 }
 })()
+
+// Old promise func.
+// function displayContent(userInput, unit) {
+//     let cityData = callApi(userInput, unit)
+//     cityData.then((data) => {
+
+//         let lat = data.lat
+//         let lon = data.lon
+
+//         contentDiv.style.visibility = 'visible'
+//         addTextContent(data)
+
+//         // Returns and calls daily forecast API as well with lat & lon
+//         return callDailyForecastApi(lat, lon, unit)
+//     })
+//     .then((data) => {
+//         addDailyForecastTextContent(data)
+//         })
+//     }

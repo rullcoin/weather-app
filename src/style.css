@@ -53,7 +53,7 @@ input[type=text] {
 .city-card {
     visibility: hidden;
     border: 1px solid rgb(72, 123, 146);
-    background-color: rgba(219, 217, 216, 0.3);
+    background-color: rgba(180, 180, 179, 0.3);
     border-radius: 25px;
     width: 800px;
     height: 400px;
@@ -76,5 +76,5 @@ input[type=text] {
     justify-content: space-between;
     align-items: center;
 
-    background-color: rgba(255, 254, 253, 0.3);
+    
 }
