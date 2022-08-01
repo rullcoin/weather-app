@@ -35,10 +35,6 @@ let userInput = ''
 
 let searchButton = document.getElementById('submit-button')
 searchButton.addEventListener('click', function(e){
-    // Reset Daily forecast div
-    
-    
-    
     e.preventDefault()
     // User search and input value
     let searchBox = document.getElementById('search-box')
